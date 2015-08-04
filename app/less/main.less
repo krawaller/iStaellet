@@ -1,0 +1,171 @@
+@full: #FF3643;
+@warn: #E8A456;
+@default: #0B61AA;
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+#map {
+  height: 100%;
+  transition: opacity 0.3s ease-out;
+  opacity: 0;
+
+  .loaded & {
+    opacity: 1;
+  }
+}
+
+.download-app {
+  display: none;
+
+  .mac & {
+    position: absolute;
+    display: block;
+    z-index: 1000;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+
+}
+@media (max-width: 1279px) {
+  .download-app {
+    display: none !important;
+  }
+}
+
+.item {
+  position: relative;
+  width: 30px;
+  height: 41px;
+
+  .marker {
+    background: lighten(@default, 8%);
+    width: 30px;
+    height: 41px;
+    -webkit-clip-path: url(#myClip);
+    position: relative;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0.1px;
+      left: 0.1px;
+      background: url(../images/marker.png);
+      background-size: 100% 100%;
+    }
+
+    .inner {
+      background: darken(@default, 12%);
+      position: absolute;
+      width: 100%;
+      height: 40%;
+      bottom: 0px;
+    }
+  }
+
+  &.warn {
+    .marker { background: lighten(@warn, 0%); }
+    .inner { background: darken(@warn, 16%); }
+  }
+
+  &.full {
+    .marker { background: lighten(@full, 8%); }
+    .inner { background: darken(@full, 12%); }
+  }
+}
+
+.leaflet-popup {
+  cursor: default;
+
+  .leaflet-popup-close-button {
+    display: none;
+  }
+
+  h1 {
+    text-transform: capitalize;
+    padding-right: 32px;
+    position: relative;
+
+    &:after {
+      content: '☆';
+      position: absolute;
+      right: 0px;
+      font-size: 24px;
+      padding: 10px;
+      margin: -10px;
+      line-height: 15px;
+    }
+
+    &.starred:after {
+      color: #ff0;
+      content: '★';
+      text-shadow: 0.5px 0px 0px #000, 0px 0.5px 0px #000, -0.5px 0px 0px #000, 0px -0.5px 0px #000;
+    }
+
+    &:hover:after {
+      color: #666;
+    }
+
+    &.starred:hover:after {
+      color: #ee0;
+    }
+  }
+}
+
+.github-fork-ribbon-wrapper {
+  z-index: 999;
+  &.right-bottom .github-fork-ribbon {
+      background-color: #005FAB;
+  }
+}
+@media (max-width: 1279px) {
+  .github-fork-ribbon-wrapper {
+    display: none;
+  }
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  background-color: #333;
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+
+  .after-loaded & {
+    display: none;
+  }
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
