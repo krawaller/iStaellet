@@ -1,8 +1,8 @@
 # iStället – ställ cykeln i stället istället!
 
-A super simple web app for finding Gothenburg's city bikes, [Styr & Ställ](http://goteborgbikes.se). Also available as a menu bar app.
+A super simple web app for finding Gothenburg's city bikes, [Styr & Ställ](http://goteborgbikes.se). See [demo at istället.nu](http://istället.nu). Also available as a menu bar app.
 
-![demo](design/demo.png)
+[![Demo screenshot](design/demo.png)](http://istället.nu)
 
 ## Features
 
