@@ -27,7 +27,7 @@ Clone and then:
 npm install
 grunt build
 python -m SimpleHTTPServer
-open http://localhost:8000
+open http://localhost:8000/dist
 ```
 
 And if you want to also build the menu bar app, you'll have to do the above and then:
