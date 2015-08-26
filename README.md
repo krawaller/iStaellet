@@ -2,7 +2,7 @@
 
 A super simple web app for finding Gothenburg's city bikes, [Styr & Ställ](http://goteborgbikes.se). See [demo at istället.nu](http://istället.nu). Also available as a menu bar app.
 
-[![Demo screenshot](design/demo.png)](http://istället.nu)
+<a href="http://istället.nu"><img width="375" height="647" src="design/demo.png" alt="Demo screenshot"></a>
 
 ## Features
 
