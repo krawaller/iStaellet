@@ -2,6 +2,8 @@
 
 A super simple web app for finding Gothenburg's city bikes, [Styr & Ställ](http://goteborgbikes.se). Also available as a menu bar app.
 
+![demo](design/demo.png)
+
 ## Features
 
 * Provides glance-friendly station status
