@@ -106,7 +106,7 @@ function render() {
     var contentElement = document.createElement('div');
     contentElement.innerHTML = [
       '<h1 class="' + (state.starredStationIds[station.Id] ? 'starred' : '') + '">' + station.Label.toLowerCase() + '</h1>',
-      'Styren: ' + station.FreeBikes + ', Ställ: ' + station.FreeStands,
+      '<span class="bikes">' + station.FreeBikes + '</span><span class="stands">' + station.FreeStands + '</span>',
     ].join('');
 
     contentElement.querySelector('h1').onclick = function() {

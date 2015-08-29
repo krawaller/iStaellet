@@ -120,6 +120,39 @@ html, body {
       color: #ee0;
     }
   }
+
+  .bikes, .stands {
+    font-size: 15px;
+    padding: 4px 22px 5px 0px;
+    background-position: center right;
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    margin-right: 14px;
+  }
+
+  .stands {
+    background-image: url(../images/stand.png)
+  }
+
+  .bikes {
+    background-image: url(../images/bike.png)
+  }
+
+  @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+    .stands {
+      background-image: url(../images/stand@2x.png)
+    }
+
+    .bikes {
+      background-image: url(../images/bike@2x.png)
+    }
+  }
 }
 
 .github-fork-ribbon-wrapper {
