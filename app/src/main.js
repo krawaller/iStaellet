@@ -141,7 +141,6 @@ function refresh() {
     };
 
     xhr.onerror = function(event) {
-      console.log('error', event)
       if (state.corsProxy === true) {
         state.corsProxy = false;
       }
