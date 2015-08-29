@@ -48,6 +48,12 @@ function init() {
     state.starredStationIds = {};
   }
 
+  try {
+    state.corsProxy = JSON.parse(localStorage.getItem('corsProxy'));
+  } catch (error) {
+    state.corsProxy = null;
+  }
+
   startRefreshInterval();
 
   document.addEventListener('visibilitychange', function() {
@@ -147,6 +153,7 @@ function refresh() {
 
       if (state.corsProxy === null) {
         state.corsProxy = true;
+        localStorage.setItem('corsProxy', state.corsProxy);
         refresh().then(resolve, reject);
       } else {
         reject(event.target);
