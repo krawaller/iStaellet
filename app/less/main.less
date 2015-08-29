@@ -60,7 +60,7 @@ html, body {
       height: 100%;
       top: 0.1px;
       left: 0.1px;
-      background: url(../images/marker.png);
+      background: data-uri('../images/marker.png');
       background-size: 100% 100%;
     }
 
@@ -131,11 +131,11 @@ html, body {
   }
 
   .stands {
-    background-image: url(../images/stand.png)
+    background-image: data-uri('../images/stand.png');
   }
 
   .bikes {
-    background-image: url(../images/bike.png)
+    background-image: data-uri('../images/bike.png');
   }
 
   @media
@@ -146,11 +146,11 @@ html, body {
     only screen and (                min-resolution: 192dpi),
     only screen and (                min-resolution: 2dppx) {
     .stands {
-      background-image: url(../images/stand@2x.png)
+      background-image: data-uri('../images/stand@2x.png');
     }
 
     .bikes {
-      background-image: url(../images/bike@2x.png)
+      background-image: data-uri('../images/bike@2x.png');
     }
   }
 }
