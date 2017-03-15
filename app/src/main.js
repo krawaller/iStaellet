@@ -15,7 +15,6 @@ var state = {
   starredStationIds: {},
   refreshInterval: null,
   refreshIntervalDuration: 30000,
-  corsProxy: null
 };
 
 init()
@@ -46,12 +45,6 @@ function init() {
     state.starredStationIds = JSON.parse(localStorage.getItem('starredStationIds')) || {};
   } catch (error) {
     state.starredStationIds = {};
-  }
-
-  try {
-    state.corsProxy = JSON.parse(localStorage.getItem('corsProxy'));
-  } catch (error) {
-    state.corsProxy = null;
   }
 
   startRefreshInterval();
@@ -96,30 +89,30 @@ function render() {
   state.stations.forEach(function(station) {
     var marker = L.marker([station.Lat, station.Long], {
       icon: new MyIcon({
-        percentageFull: (station.FreeBikes / (station.FreeBikes + station.FreeStands)) * 100
+        percentageFull: (station.AvailableBikes / (station.AvailableBikes + station.AvailableBikeStands)) * 100
       })
     }).addTo(state.markerFeatureGroup);
 
-    if (state.starredStationIds[station.Id]) {
+    if (state.starredStationIds[station.StationId]) {
       marker.addTo(state.starredFeatureGroup);
     } else if (Object.keys(state.starredStationIds).length) {
       marker.setOpacity(0.5);
     }
 
     var popup = L.popup();
-    popup.stationId = station.Id;
+    popup.stationId = station.StationId;
 
     var contentElement = document.createElement('div');
     contentElement.innerHTML = [
-      '<h1 class="' + (state.starredStationIds[station.Id] ? 'starred' : '') + '">' + station.Label.toLowerCase() + '</h1>',
-      '<span class="bikes">' + station.FreeBikes + '</span><span class="stands">' + station.FreeStands + '</span>',
+      '<h1 class="' + (state.starredStationIds[station.StationId] ? 'starred' : '') + '">' + station.Name.toLowerCase() + '</h1>',
+      '<span class="bikes">' + station.AvailableBikes + '</span><span class="stands">' + station.AvailableBikeStands + '</span>',
     ].join('');
 
     contentElement.querySelector('h1').onclick = function() {
-      if (station.Id in state.starredStationIds) {
-        delete state.starredStationIds[station.Id];
+      if (station.StationId in state.starredStationIds) {
+        delete state.starredStationIds[station.StationId];
       } else {
-        state.starredStationIds[station.Id] = true;
+        state.starredStationIds[station.StationId] = true;
       }
       localStorage.setItem('starredStationIds', JSON.stringify(state.starredStationIds));
       render();
@@ -128,7 +121,7 @@ function render() {
     popup.setContent(contentElement);
     marker.bindPopup(popup);
 
-    if (state.activePopupStationId == station.Id) {
+    if (state.activePopupStationId == station.StationId) {
       marker.openPopup(popup);
     }
   });
@@ -137,27 +130,16 @@ function render() {
 function refresh() {
   return new Promise(function(resolve, reject) {
     var xhr = new XMLHttpRequest();
-    var url = (state.corsProxy ? 'http://crossorigin.me/' : '') +
-      'http://data.goteborg.se/StyrOchStall/v0.1/GetBikeStations/a8fa9d1b-84f6-440b-a511-f1d906dbe779?format=json&dt=' + Date.now();
+    var url = 'https://data.goteborg.se/SelfServiceBicycleService/v1.0/Stations/a8fa9d1b-84f6-440b-a511-f1d906dbe779?format=json&dt=' + Date.now();
     xhr.open('GET', url);
     xhr.onload = function(event) {
       var data = JSON.parse(this.response);
-      state.stations = data.Stations;
+      state.stations = data;
       resolve();
     };
 
     xhr.onerror = function(event) {
-      if (state.corsProxy === true) {
-        state.corsProxy = false;
-      }
-
-      if (state.corsProxy === null) {
-        state.corsProxy = true;
-        localStorage.setItem('corsProxy', state.corsProxy);
-        refresh().then(resolve, reject);
-      } else {
-        reject(event.target);
-      }
+      reject(event.target);
     };
     xhr.send();
   });
